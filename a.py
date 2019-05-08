@@ -1,0 +1,14 @@
+l=[1000,2000,3000]
+a=1000
+b=2000
+v=3000
+k=[a,b,v]
+m=l[:]
+n=l
+o=l.copy()
+print(l[0],id(l[0]))
+print(a,id(a))
+print(k[0],id(k[0]))
+print(m[0],id(m[0]))
+print(n[0],id(n[0]))
+print(o[0],id(o[0]))
