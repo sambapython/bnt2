@@ -14,13 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.http import HttpResponse
-def fun(request):
-	
-	return HttpResponse("available: 30 GB, used:40 GB")
+from sales.views import fun, home_view, home_view1, CustomerView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', fun),
+    path("",home_view),
+    path("1/",home_view1),
+    re_path("customers/(?P<pk>[0-9]+)",CustomerView.as_view()),
+    path("customers/",CustomerView.as_view()),
 ]

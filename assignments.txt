@@ -9,37 +9,25 @@ respone: 4CORES
 req:  http://127.0.0.1:8000/get_hdd/
 response: Total: 1TB, Used: 300GB, available: 700GB
 
-2.create a project ERP 
-	app1: sales
-	app2: pur
-	app3: stock
-	app4: accounting
-create index.html template in all apps 
-req:  http://127.0.0.1:8000/sales/index/  it should read sales app index.html
-req:  http://127.0.0.1:8000/pur/index/  it should read pur app index.html
-req:  http://127.0.0.1:8000/stock/index/  it should read stock app index.html
-req:  http://127.0.0.1:8000/accounting/index/  it should read accounting app index.html
+2. Design webservices for the below requirements.
+	create a project CLOUDdatacenter, and virtualmachine app
 
-3.create a project ERP 
-	app1: sales
-	app2: pur
-	app3: stock
-	app4: accounting
-create atleast two models for app and do migrations and migrate. Fill the data into tables 
-using shell. every table should contains atleast five records
-4.create a project ERP 
-	app1: sales
-	app2: pur
-	app3: stock
-	app4: accounting
-create atleast two models for each app makenure that it is covering all the
-relations(foreignkey,OneToOne,ManyToMany,). Maintain atleast one abstract for app. 
-and do migrations and migrate. Fill the data into tables 
-using shell. every table should contains atleast five records. Use OneToOne relation and 
-inheritace models. Maintain the user TRACK and datetime track
+req:  http://127.0.0.1:8000/get_temp/  
+respone: your processor temperature
+req:  http://127.0.0.1:8000/get_ram/  
+respone: Total: 8GB, using:3GB available:5GB
+req:  http://127.0.0.1:8000/get_numberofCPUS/  
+respone: 4CORES
+req:  http://127.0.0.1:8000/get_hdd/
+response: Total: 1TB, Used: 300GB, available: 700GB 
 
-5. develop three products menus
-	product_raw(develop CRUD without using django forms, generic views)
+3.  Create atleast 5 different apps. Each app contains atleast two models.
+ do makemigrations and migrate to DB. create atleast ten rocords for each and every models. 
+
+
+
+
+5.	product_raw(develop CRUD without using django forms, generic views)
 	product_form(develop CRUD by using django forms wihtout using generic views)
 	product_generic(develop CRUD by using generic views)
 6. develop rest services(post, put, delete, get) for prodcut without using rest_framework.serializers
