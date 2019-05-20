@@ -6,12 +6,17 @@ from rest_framework import status
 
 from sales.models import Customer
 
+from sales.serializers import CustomerSerializer, CustomerGetSerializer
+
 # Create your views here.
-class CustomerView(APIView):
+class quotation(APIView):
+	authentication_classes=[]
+	permission_classes=[]
+
 	def post(self, request, format=None):
 		# insrted details
-		data = request.data
-		print("data:::::",data)
+		# = request.data
+		#print("data:::::",data)
 		'''
 		cust = Customer(name=data["name"],
 			address=data["address"],
@@ -20,9 +25,16 @@ class CustomerView(APIView):
 			email=data["email"],)
 		'''
 		try:
-		    cust=Customer(**data)
-		    cust.save()
-		    msg="customer created successfully"
+		    #cust=Customer(**data)
+		    #cust.save()
+		    ser = CustomerSerializer(data=request.data)
+		    if ser.is_valid():
+		    	
+		    	ser.save()
+		    	msg="customer created successfully"
+		    else:
+		    	msg=ser._errors
+		    
 		    sta = status.HTTP_200_OK
 		except Exception as err:
 			msg= str(err)
@@ -31,7 +43,58 @@ class CustomerView(APIView):
 		return Response(msg, status=sta)
 	def get(self, request, format=None):
 		records = Customer.objects.all()
-		data = [rec.get_record() for rec in records]
+		cser = CustomerGetSerializer(records, many=True)
+		data = cser.data
+		#data = [rec.get_record() for rec in records]
+		return Response(data)
+	def put(self, request, pk, format=None):
+		return Response("customer updated successfully")
+	def delete(self, request, pk, format=None):
+		
+		try:
+			rec = Customer.objects.get(id=pk)
+			record_details = rec.delete()
+			msg = f"{pk} deleted successfully"
+			sta = status.HTTP_200_OK
+		except Exception as err:
+			msg = str(err)
+			sta = status.HTTP_400_BAD_REQUEST
+		return Response(msg, status=sta)
+
+class CustomerView(APIView):
+	def post(self, request, format=None):
+		# insrted details
+		# = request.data
+		#print("data:::::",data)
+		'''
+		cust = Customer(name=data["name"],
+			address=data["address"],
+			gender=data["gender"],
+			cell=data["cell"],
+			email=data["email"],)
+		'''
+		try:
+		    #cust=Customer(**data)
+		    #cust.save()
+		    ser = CustomerSerializer(data=request.data)
+		    if ser.is_valid():
+
+		    	ser.save()
+		    	msg="customer created successfully"
+		    else:
+		    	msg=ser._errors
+		    
+		    sta = status.HTTP_200_OK
+		except Exception as err:
+			msg= str(err)
+			sta = status.HTTP_400_BAD_REQUEST
+
+		return Response(msg, status=sta)
+	def get(self, request, format=None):
+		records = Customer.objects.all()
+		cser = CustomerGetSerializer(records, many=True)
+		data = cser.data
+		#data = [rec.get_record() for rec in records]
 		return Response(data)
 	def put(self, request, pk, format=None):
 		return Response("customer updated successfully")
